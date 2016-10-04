@@ -66,7 +66,6 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "tomcat", type: "shell" do |s|
     s.inline = "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
-    #s.inline = "yum repolist | grep puppet"
     s.inline = "yes | yum -y install puppet"
     s.inline = "yum -y install wget"
     s.inline = "wget -O /root/nginx.pp https://raw.githubusercontent.com/psymashrum/task2/master/nginx.pp"
