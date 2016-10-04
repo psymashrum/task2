@@ -64,7 +64,10 @@ Vagrant.configure("2") do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "tomcat", type: "shell" do |s|
+    s.inline = "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
+    s.inline = "yum repolist | grep puppet"
+    s.inline = "yes | yum -y install puppet"
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
