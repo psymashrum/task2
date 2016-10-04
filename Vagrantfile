@@ -66,10 +66,17 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "tomcat", type: "shell" do |s|
     s.inline = "rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm"
-    s.inline = "yum repolist | grep puppet"
+    #s.inline = "yum repolist | grep puppet"
     s.inline = "yes | yum -y install puppet"
+    s.inline = "yum -y install wget"
+    s.inline = "wget -O /root/nginx.pp https://raw.githubusercontent.com/psymashrum/task2/master/nginx.pp"
+    s.inline = "wget -O /root/tomcat.pp https://raw.githubusercontent.com/psymashrum/task2/master/tomcat.pp"
+    s.inline = "chmod +x /root/nginx.pp && chmod +x /root/tomcat.pp"
+    s.inline = "puppet apply ~/nginx.pp"
+    s.inline = "puppet apply ~/tomcat.pp"
+  end
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.forward_port 8888, 8888
+  config.vm.network "forwarded_port", guest: 8888, host: 8888
 end
